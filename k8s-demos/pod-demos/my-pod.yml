@@ -6,3 +6,12 @@ spec:
   containers:
     - name: web
       image: nginx:latest
+      ports:
+        - containerPort: 80
+      resources:
+        limits: # MAX AMOUNT OF RESOURCES 
+          memory: "64Mi"
+          cpu: "m"
+        requests: # INITIAL RESOURCE ALLOCATION
+          memory: "64Mi"
+          cpu: "250m"
