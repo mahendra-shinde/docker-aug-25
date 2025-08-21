@@ -1,0 +1,8 @@
+services:
+  app-a:
+    build: ./app-a
+    ports:
+      - "9000:80"
+  app-b:
+    build: ./app-b
+    
