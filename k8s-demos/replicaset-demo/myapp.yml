@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+spec:
+  replicas: 3
+  # Any existing pod in current namespace with label "app: myapp"
+  # Would be auto become member of this replicaset
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: mahendrshinde/myweb:1
+          ports:
+            - containerPort: 80
