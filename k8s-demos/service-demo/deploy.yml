@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp3
+spec:
+  revisionHistoryLimit: 10
+  minReadySeconds: 5
+  replicas: 3
+  # Deployment Strategy 
+  # Deployment Type 1: New Deployment
+  # Deployment Type 2: Updating new version
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: myapp3
+  template:
+    metadata:
+      labels:
+        app: myapp3
+    spec:
+      containers:
+      - name: myapp
+        image: mahendrshinde/myweb:1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 80
