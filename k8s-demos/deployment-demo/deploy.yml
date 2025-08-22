@@ -4,6 +4,7 @@ metadata:
   name: myapp3
 spec:
   revisionHistoryLimit: 10
+  minReadySeconds: 5
   replicas: 3
   # Deployment Strategy 
   # Deployment Type 1: New Deployment
