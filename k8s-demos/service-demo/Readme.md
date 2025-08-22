@@ -111,3 +111,41 @@ A NodePort service exposes the application on a static port (the NodePort) on ea
 	```
 
 ---
+## Exposing the App with a LoadBalancer Service
+
+For cloud environments (or local environments that support it), you can use a `LoadBalancer` service to expose your app externally. This type of service provisions an external IP (or hostname) and load balances traffic to your pods.
+
+### What is a LoadBalancer Service?
+A LoadBalancer service automatically creates an external load balancer (if supported by your Kubernetes environment) and assigns a public IP address. This is the most common way to expose services in cloud providers like AWS, Azure, or GCP.
+
+### Steps to Use LoadBalancer Service
+
+1. **Remove the Previous Service (if any)**
+	```sh
+	kubectl delete -f app-nodeport.yml
+	```
+	This deletes the NodePort service if it exists.
+
+2. **Deploy the LoadBalancer Service**
+	```sh
+	kubectl apply -f app-lb.yml
+	```
+	This creates a service named `myweb2` of type `LoadBalancer` that exposes the same deployment (`myapp3`).
+
+3. **Find the External IP and Access the App**
+	```sh
+	kubectl get services
+	```
+	Wait for the `EXTERNAL-IP` to be assigned to the `myweb2` service. This may take a few minutes in cloud environments.
+
+	- Access the app in your browser or with curl:
+	  ```sh
+	  curl http://<EXTERNAL-IP>:8050
+	  ```
+	- For local environments (like Docker Desktop), you may need to use `kubernetes.docker.internal` or check your environment's documentation for accessing LoadBalancer services.
+
+4. **(Optional) Clean Up**
+	```sh
+	kubectl delete -f app-lb.yml
+	```
+
