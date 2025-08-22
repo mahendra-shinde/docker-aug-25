@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: scpod
+  labels:
+    app.kubernetes.io/name: scpod
+spec:
+  containers:
+  - name: scpod
+    image: mahendrshinde/myweb:1
+    envFrom:
+    - secretRef:
+        name: secret1
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
