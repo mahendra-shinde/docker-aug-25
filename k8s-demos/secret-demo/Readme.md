@@ -89,7 +89,7 @@ To view the actual values stored in the Secret:
 ```sh
 kubectl get secret secret1 -o yaml
 ```
-Copy the base64 value and decode it:
+Copy the base64 value and decode it: (Use Ubuntu Bash / Git Bash)
 ```sh
 echo 'U2VydmVyPW15U2VydmVyQWRkcmVzcztEYXRhYmFzZT1teURhdGFCYXNlO1VzZXIgSWQ9bXlVc2VybmFtZTtQYXNzd29yZD1teVBhc3N3b3JkOwo=' | base64 -d
 ```
