@@ -69,4 +69,45 @@ This demo shows how to expose a Kubernetes Deployment using a Service. You will 
 
 ---
 
-Happy Learning!
+## Exposing the App Externally: NodePort Service
+
+The previous steps used a `ClusterIP` service, which is only accessible within the Kubernetes cluster. To allow access from outside the cluster (e.g., from your browser or another machine on the network), you can use a `NodePort` service.
+
+### What is a NodePort Service?
+A NodePort service exposes the application on a static port (the NodePort) on each node's IP address. You can access the app using `<NodeIP>:<NodePort>`.
+
+### Steps to Switch to NodePort Service
+
+1. **Remove the Old Service**
+	```sh
+	kubectl delete -f app-service.yml
+	```
+	This deletes the old `ClusterIP` service named `myweb`.
+
+2. **Deploy the NodePort Service**
+	```sh
+	kubectl apply -f app-nodeport.yml
+	```
+	This creates a new service named `myweb2` of type `NodePort` that exposes the same deployment (`myapp3`).
+
+3. **Find the NodePort and Access the App**
+	```sh
+	kubectl get services
+	```
+	Look for the `myweb2` service and note the `NODE-PORT` (e.g., 30000-32767).
+
+	- Get your node's IP address (for Docker desktop, use `kubernetes.docker.internal` instead of node-ip).
+
+	- Access the app in your browser or with curl:
+	  ```sh
+	  curl http://<NodeIP>:<NodePort>
+	  ```
+
+    > for Docker desktop use URL http://kubernetes.docker.internal:<NODEPORT>
+
+4. **(Optional) Clean Up**
+	```sh
+	kubectl delete -f app-nodeport.yml
+	```
+
+---
