@@ -103,6 +103,39 @@ echo 'U2VydmVyPW15U2VydmVyQWRkcmVzcztEYXRhYmFzZT1teURhdGFCYXNlO1VzZXIgSWQ9bXlVc2
 
 ---
 
+## Using Private Images from Azure Container Registry (ACR) with Kubernetes Secrets
+
+To pull private images from ACR, create a Docker registry secret:
+
+```sh
+kubectl create secret docker-registry regsec \
+	--docker-username=myreg2378 \
+	--docker-password=Ru6pgfgf8P7c6Ul+mWEhx4fRuYJkx7ByftD4kRPWNZ+ACRDJG6Zt \
+	--docker-server=myreg2378.azurecr.io
+```
+
+**Output:**
+```
+secret/regsec created
+```
+
+### Using the Secret in a Pod or Deployment
+
+Add the following `imagePullSecrets` section to your pod or deployment spec:
+
+```yaml
+spec:
+	containers:
+		- name: myapp
+			image: myreg2378.azurecr.io/fortune
+	imagePullSecrets:
+		- name: regsec
+```
+
+This tells Kubernetes to use the `regsec` secret when pulling the image from your private ACR.
+
+---
+
 ## References
 - [Kubernetes Secrets Documentation](https://kubernetes.io/docs/concepts/configuration/secret/)
 - [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)

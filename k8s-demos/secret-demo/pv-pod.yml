@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pv-pod
+  labels:
+    app.kubernetes.io/name: pv-pod
+spec:
+  imagePullSecrets:
+    - name: regsec
+  containers:
+  - name: pv-pod
+    image: myreg2378.azurecr.io/fortune:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    
