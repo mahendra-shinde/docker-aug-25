@@ -3,12 +3,13 @@ kind: Deployment
 metadata:
   name: myapp3
 spec:
+  revisionHistoryLimit: 10
   replicas: 3
   # Deployment Strategy 
   # Deployment Type 1: New Deployment
   # Deployment Type 2: Updating new version
   strategy:
-    type: Recreate
+    type: RollingUpdate
   selector:
     matchLabels:
       app: myapp3
